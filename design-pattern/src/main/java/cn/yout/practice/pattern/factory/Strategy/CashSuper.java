@@ -55,4 +55,13 @@ public class CashSuper {
             return total;
         }
     }
+
+
+    /**
+     * 测试用
+     * @param args args
+     */
+    public static void main(String[] args){
+        System.out.println();
+    }
 }
