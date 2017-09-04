@@ -1,4 +1,4 @@
-package cn.yout.practice.pattern.factory.Strategy;
+package cn.yout.practice.pattern.factory.strategy;
 
 /**
  * 以计价器为例子，解释策略模式，其中Context上下文加上了简单工厂模式，

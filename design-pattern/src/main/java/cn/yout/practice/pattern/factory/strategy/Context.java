@@ -1,4 +1,4 @@
-package cn.yout.practice.pattern.factory.Strategy;
+package cn.yout.practice.pattern.factory.strategy;
 
 /**
  * 上下文

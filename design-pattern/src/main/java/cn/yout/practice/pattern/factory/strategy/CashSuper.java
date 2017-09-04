@@ -1,4 +1,4 @@
-package cn.yout.practice.pattern.factory.Strategy;
+package cn.yout.practice.pattern.factory.strategy;
 
 /**
  * 具体策略类，封装了具体的算法家族或行为，继承于Strategy。
