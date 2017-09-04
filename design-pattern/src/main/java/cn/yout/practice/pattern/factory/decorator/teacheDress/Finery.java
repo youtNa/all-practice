@@ -1,4 +1,4 @@
-package cn.yout.practice.pattern.factory.Decorator.TeacheDress;
+package cn.yout.practice.pattern.factory.decorator.teacheDress;
 
 public class Finery extends Person{
     private Person person;

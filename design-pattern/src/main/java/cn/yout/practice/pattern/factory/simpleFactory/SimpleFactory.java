@@ -1,4 +1,4 @@
-package cn.yout.practice.pattern.factory.SimpleFactory;
+package cn.yout.practice.pattern.factory.simpleFactory;
 
 import java.util.Scanner;
 

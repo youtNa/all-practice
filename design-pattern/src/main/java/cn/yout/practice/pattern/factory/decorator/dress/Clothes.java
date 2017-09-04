@@ -1,4 +1,4 @@
-package cn.yout.practice.pattern.factory.Decorator.Dress;
+package cn.yout.practice.pattern.factory.decorator.dress;
 
 public class Clothes extends Body{
     private Body body;

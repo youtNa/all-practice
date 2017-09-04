@@ -1,4 +1,4 @@
-package cn.yout.practice.pattern.factory.Decorator.Dress;
+package cn.yout.practice.pattern.factory.decorator.dress;
 
 /**
  * 依照基础结构和书上提供的题目自己编写的例子。

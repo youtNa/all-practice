@@ -1,4 +1,4 @@
-package cn.yout.practice.pattern.factory.Decorator.TeacheDress;
+package cn.yout.practice.pattern.factory.decorator.teacheDress;
 
 /**
  * 大话设计模式提供的应用场景例子

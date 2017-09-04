@@ -1,4 +1,4 @@
-package cn.yout.practice.pattern.factory.Decorator.Simple;
+package cn.yout.practice.pattern.factory.decorator.simple;
 
 /**
  * 装饰器模式，基本结构

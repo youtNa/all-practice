@@ -1,4 +1,4 @@
-package cn.yout.practice.pattern.factory.Decorator.Simple;
+package cn.yout.practice.pattern.factory.decorator.simple;
 
 public class ConcreteDecoratorA extends Decorator{
     private String addedState;
