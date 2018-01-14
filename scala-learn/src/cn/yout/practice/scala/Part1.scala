@@ -1,5 +1,7 @@
 package cn.yout.practice.scala
 
+import scala.collection.mutable.ArrayBuffer
+
 
 object Part1 extends App {
   /**
@@ -112,4 +114,63 @@ object Part1 extends App {
     case e :Exception => System.err.println(e)
     case _ => println("Error")
   }
+
+  /**
+    * 定义数组(定长数组)
+    * 1. new 实例化
+    * 2. 直接赋值
+    */
+  val array_name = new Array[String](2)
+  array_name(0) = "Jack"
+  array_name(1) = "Marry"
+  for (i <- array_name) print(i + " ")
+  println()
+
+  val array_name_2 = Array("12","34")
+  for (i <- array_name_2) print(i + " ")
+  println()
+
+  /**
+    * 定义数组(变长数组)
+    */
+  var array_name_3 = ArrayBuffer[Int]()
+  array_name_3 += 1
+  array_name_3 += 2
+  array_name_3 += (3,4)
+  array_name_3 ++= Array(3,4)
+  array_name_3.insert(0,0)
+  array_name_3.remove(5)
+  for (i <- array_name_3) print(i + " ")
+  println()
+  array_name_3.remove(0,2) //从下标为0元素开始删除两个元素
+  for (i <- array_name_3) print(i + " ")
+  println()
+  println(array_name_3.toArray.sum) //转为Array后求和， min求最小， max求最大
+  array_name_3.trimEnd(2) //移除末尾n个元素
+  for (i <- array_name_3) print(i + " ")
+  println()
+
+  /**
+    * Map 操作(可变与不可变)
+    */
+  var old = Map("Jack" -> 20 , "Tom" -> 30)
+  old += ("Merry" -> 4)
+  for ((k,v) <- old) print(k + " -> " + v + " ")
+  println()
+  for ((k,_) <- old) print(k + " ")
+  println()
+
+  println(old.get("Jack")) //必须含有key否则报错
+  println(old.getOrElse("Test",0)) //如果没有key则返回默认值
+  old += ("Lucy" -> 2)
+  old -= "Jack"
+
+  /**
+    * 元组
+    */
+  var elems = (1,2,34,5)
+  println(elems._1) //元组下标从 1 开始，而不是0
+  for (elem <- elems.productIterator) print(elem + " ")
+  println()
+
 }
