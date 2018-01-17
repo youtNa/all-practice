@@ -2,7 +2,9 @@ package cn.yout.practice.scala
 
 import scala.collection.mutable.ArrayBuffer
 
-
+/**
+  * scala 基础知识
+  */
 object Part1 extends App {
   /**
     * 值与变量
@@ -46,7 +48,7 @@ object Part1 extends App {
   def noParam (): Unit ={
     println("This method has no param")
   }
-  noParam
+  noParam //从IDEA提示来看，是不建议这样处理的
 
   //Tips 3
   def moreParam(param1 :String, param2 : String): Unit ={
@@ -64,12 +66,6 @@ object Part1 extends App {
     println(elems)
   }
   paramTest(1,2,3,4)
-
-  /**
-    * Int 类型一些方法
-    * 1. int.to
-    */
-
 
 
   /**
