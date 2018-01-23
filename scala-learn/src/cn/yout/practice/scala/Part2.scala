@@ -72,6 +72,17 @@ class Student2 extends Person3 {
   var age: Int = 29
 }
 
+/**
+  * trait 特质
+  * 1. 字段和行为的集合
+  * 2. 混入类中
+  * 3. 通过with关键字，一个类可以拓展多个特质
+  * 用法：
+  * 1. 当做接口
+  * 2. 带有具体实现的接口
+  * 3. 带有特质的对象
+  * 4. 特质从左到右被构造
+  */
 trait Logger{
   def log(arg : String): Unit = println(arg)
 }
@@ -122,6 +133,32 @@ class TraitTest3 extends TraitTestAbs with ConsoleLogger2{
   }
 }
 
+class ApplyTest{
+//  def apply() = "class apply"
+  def apply() = println("class apply")
+  def test(): Unit ={
+    println("This is a apply test")
+  }
+}
+
+object ApplyTest{
+  def apply(): ApplyTest = new ApplyTest()
+
+  /**
+    * 创建在Object里面的方法就是静态方法,并且scala里面static不是关键字
+    */
+  def static: Unit ={
+    println("This is a static method")
+  }
+
+  var count = 0
+  def incr: Unit ={
+    count = count + 1
+  }
+}
+
+
+
 object Part2 extends App {
   var p = new Person //括号可以省略
   println(p.name + ":" + p.age)
@@ -152,8 +189,85 @@ object Part2 extends App {
   val traitTest3 = new TraitTest3
   traitTest3.test()
   //通过在类后加with混入次方法想要实现的log方法
-  //注意：混入的类必须继承原类即ConsoleLogger2 (蛋糕模式！！)
+  //注意：混入的类必须继承原类即ConsoleLogger2 (蛋糕模式！！)（带有特质的对象）
   val traitTest4 = new TraitTest3 with MessageLogger
   traitTest4.test()
 
+  //apply用法
+  println("\napply用法")
+  //类名后加括号调用的是Object的apply方法，变量后加括号(clazzApply())调用的是class的apply方法
+  val applyTest = ApplyTest()
+  applyTest.test()
+  val clazzApply = new ApplyTest()
+  clazzApply()
+
+  //单例对象
+  println("\n单例对象")
+  //因为object里面的方法为static所以可以用其特性，做单例对象
+  for (i <- 1 to 10){
+    ApplyTest.incr
+  }
+  println("count :" + ApplyTest.count)
+
+  //包
+  println("\n包(package com.youtna)")
+  /**
+    * 包
+    * 1. 支持嵌套，下层可以访问上层作用域的名称
+    * 2. 可串联
+    *   package cn.yout{
+    *     package scala{
+    *       cn和yout中的队scala不可见，不能被scala访问到
+    *     }
+    *   }
+    * 3. 顶部标记
+    *    package cn.a
+    *    package cn.b 也是分开访问与可串联类似
+    * 4. 包对象
+    * 5. 包可见性
+    * 6. 包在任意地方都可以引入，作用域至该语句所在块的末尾
+    *   {
+    *     import xxx.xx.xx
+    *   }
+    *   在此就访问不到xx
+    * 6. 重命名包引入成员(xx => yy)
+    *   import java.Util.{HashMap =>JavaHashMap}
+    *   之后可以调用JavaHashMap
+    * 7. 隐藏方法(xx => _)
+    *   HashMap =>_
+    *   之后就访问不到HashMap
+    * 8. 自动引入(java.lang._ scala._)
+    * ...
+    */
+
+  /**
+    * 模式匹配
+    * 1. 标准用法，match(匹配到合适的立即返回，不需要break)
+    * 2. 使用守卫
+    * 3. 匹配类型
+    */
+  //标准用法
+  println("\n模式匹配")
+  val value = 2
+  var result = value match {
+    case 1 => "one"
+    case 2 => "two"
+    case _ => "other number"
+  }
+  println("result :" + result)
+  println("模式匹配中case里面可以加if判断")
+  result = value match {
+    case i if i%2 == 0 => "even number"
+    case i if i%2 == 1 => "odd number"
+    case _ => "error"
+  }
+  println("result is :" + result)
+  println("模式匹配可以匹配类型")
+  def t(obj : Any) = obj match {
+      case _ : Int => println("Int") //_代表任意变量，也可以用i/X等变量
+      case _ :String => println("String")
+      case _ => println("other type")
+    }
+
+  t(1.0D)
 }
