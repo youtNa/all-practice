@@ -31,7 +31,7 @@ object Part1 extends App {
     *   4. 默认参数,如下：
     *     def 方法名 (参数名 : 参数类型 = 默认值){}
   *     5. 变长参数(int*)
-    *   5. scala 没有静态方法(static),通过 object 实现
+    *   6. scala 没有静态方法(static),通过 object 实现
     *
     */
   def test (param : String) : String = {
@@ -62,6 +62,7 @@ object Part1 extends App {
   }
   defaultParam()
 
+  //Tips 5
   def paramTest(elems : Int*): Unit ={
     println(elems)
   }
@@ -107,7 +108,7 @@ object Part1 extends App {
     val n = 0
     println(1/n)
   }catch {
-    case e :Exception => System.err.println(e)
+    case e : Exception => System.err.println(e)
     case _ => println("Error")
   }
 
