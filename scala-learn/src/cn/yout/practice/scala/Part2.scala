@@ -157,6 +157,10 @@ object ApplyTest{
   }
 }
 
+abstract class Person_case
+case class Teacher_case() extends Person_case
+case class Student_case() extends Person_case
+
 
 
 object Part2 extends App {
@@ -269,5 +273,16 @@ object Part2 extends App {
       case _ => println("other type")
     }
 
-  t(1.0D)
+  /**
+    * 模式匹配 case class
+    */
+  def case_class(p :Person_case): Unit ={
+    p match {
+      case Teacher_case() => println("This is teacher class.")
+      case Student_case() => println("This is student class.")
+      case _ => println("This is other class.")
+    }
+  }
+
+  case_class(Teacher_case())
 }
