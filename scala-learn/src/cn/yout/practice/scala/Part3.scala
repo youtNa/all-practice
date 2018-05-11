@@ -1,9 +1,11 @@
 package cn.yout.practice.scala
 
+import scala.collection.immutable.SortedSet
+import scala.collection.mutable.ListBuffer
+
 class Part3 {
 
 }
-
 
 object Part3 extends App {
   /**
@@ -163,4 +165,128 @@ object Part3 extends App {
     println(flag)
   }
   test2(3 > 2)
+
+  /**
+    * 集合
+    *   seq
+    *   set
+    *   map
+    * scala 的集合操作和spark的集合操作是平行的！！！
+    *
+    * 可变和不可变集合
+    *   scala.collection.mutable.Map 可变Map
+    *   scala.collection.immutable.Map 不可变Map
+    *   scala.collection.mutable.List 可变List
+    *   scala.collection.immutable.List 不可变List
+    *   immutable 已经内置到scala中，调用时不需要import；mutable在使用时需要import
+    */
+  val map = Map(1 -> 2, 3 -> 4) //mutable
+  val map_mu =  scala.collection.mutable.Map(1 ->2, 3 -> 4)
+  println(map)
+  println(map_mu)
+
+  /**
+    * Range
+    * 1. Range(start : Int, end : Int ,step : Int)
+    * 2. 提供apply方法
+    * 3. step可为正或者负，但不能为0
+    * 4. 左闭右开
+    */
+  println(Range(1,10,2))
+  println(Range(10,1,-1))
+
+  /**
+    * List
+    * 1. List由Nil或者head + tail构成，其中tail有事一个List
+    * 2. new-value :: list
+    * 3. 构建：List(1,2,3) 或者 1 :: 2 :: 3 ::Nil
+    * 4. 基于List的模式匹配
+    * 5. 利用迭代或者递归处理List
+    */
+  val l = List(1,2,3,4)
+  println("list heal:" + l.head)
+  println("list tail:" + l.tail)
+  println("new-value :: list:" + 1 :: l)
+  println("构建：" + List(1,2) + "或者" + 1 :: 2 :: 3 :: Nil)
+  println("基于List的模式匹配")
+  def listMatch(list: Any) = list match {
+    case 0 :: Nil => println("list 0")
+    case x :: y :: Nil => println("list first:" + x + " second:" + y)
+    case 0 :: tail => println("list start 0")
+    case _ => println("other")
+  }
+  listMatch(1,2,3)
+  listMatch(List(0))
+  listMatch(List(1,2))
+  listMatch(List(0,1,2,3))
+  listMatch(List(1,2,3))
+
+  /**
+    * ListBuffer(可变)
+    * 1. +=/ ++=/-=/--=
+    * 2. 转为不可变 toList/toArray
+    *
+    */
+  val lb = ListBuffer(1)
+  lb += 1
+  println(lb)
+  lb ++= 2 ::3 :: 4 :: Nil
+  println(lb)
+  lb -= 1
+  println(lb)
+  lb --= 3 :: 2 :: Nil
+  println(lb)
+  println(lb.toList)
+  println(lb.toArray)
+
+  /**
+    * immutable Set(不可变Set)
+    * 1. +/++
+    * 2. -/--
+    * 3. scala.collection.immutable.SortedSet
+    */
+  var set = Set(1,2,3,4)
+  println(set + 5)
+  println(set ++ List(8,4,6))
+  println(set - 1)
+  println(set -- List(1,2,5))
+  println(SortedSet(4,2,5,6,2))
+
+  /**
+    * mutable Set(可变Set)
+    * 1. +/++/-/--都会创造一个新的Set
+    * 2. +=/++=/-=/--= 不会床罩新的Set
+    * 3. scala.collection.mutable.SortedSet(trait)
+    * 4. TreeSet&BitSet
+    */
+
+  /**
+    * 重要方法
+    * 1. map
+    * 2. foreach/take
+    * 3. filter
+    * 4. flatten/flatMap
+    * 5. reduce/fold reduceLeft/foldLeft or Right
+    * 6. sum/max/min/count
+    * 7. zip
+    */
+  val l2 = List(1,2,3,4)
+  println(l2.map(_ * 2))
+  l2.foreach(println(_))
+  println(l2.take(3))
+  println(l2.filter(_ > 2))
+  val l3 = List(List(1,2),List(3,4))
+  println(l3.flatten)
+  println(l3.flatMap(_.map(_ * 2)))
+  println(l2.reduce(_ + _))
+  println(l2.sum)
+  println(l2.max)
+  println(l2.min)
+  println(l2.count(_ > 2))
+  val l4 = List(1,2,3,4,5)
+  val l5 = List("A","B","C","D")
+  println(l4 zip l5)
+
 }
+
+
