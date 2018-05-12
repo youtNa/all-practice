@@ -27,7 +27,104 @@ object TestT{
   }
 }
 
+class A[T](a : T){
+  println(a)
+  def pr(d : T) = println(d)
+}
+
+trait B{
+  def pr[T](a : T) = println(a)
+}
+
+class C() extends B{
+
+}
+
+//设置上界，T必须是继承了Comparable类的
+class Bounds[T <: Comparable[T]](first : T, second : T){
+  def smaller = if (first.compareTo(second) < 0) first else second
+}
+//view bounds 设置上界，其中T可以隐式转换为Comparable即可
+class Bounds3[T <% Comparable[T]](first : T, second : T){
+  def smaller = if (first.compareTo(second) < 0) first else second
+}
+//context bounds 通过隐式转换的方式实现上界的设置，等同Bounds3
+class Bounds4[T](first : T, second : T)(implicit en : T => Comparable[T]){
+  def smaller = if (first.compareTo(second) < 0) first else second
+}
+
+//设置下界，R必须是T的超类
+class Bounds2[T](first : T, second : T){
+  def compare[R >:T](newFirst : R) = new Bounds2(newFirst,second);
+}
+
+class Person_bound(val name :String)
+
+class Student_bound(name: String) extends Person_bound(name)
+
+class X[+T](x : T)
+class X2[-T](x : T)
+
 object Part4 extends App{
+  /**
+    * 泛型类/泛型函数
+    * 注意：
+    * 1. Object不能泛型,trait可以泛型
+    *
+    * Lower bounds(下界)
+    * Upper bounds(上界)
+    * View bounds T<%v -------> T到V的隐式转换
+    * Context bounds [T:M] ------> M[T]
+    */
+  new A[Int](1)
+  new A(1) //scala 会从变量中识别类型，所以[Int】可以不写
+  //new A[String](1) //如果写出泛型scala就会做参数类型校验
+  val d = new C()
+  d.pr(1)
+
+  val smaller = new Bounds("21","22")
+  println(smaller.smaller)
+
+  val smaller2 = new Bounds3(1,2)
+  println(smaller2.smaller)
+
+  val smaller3 = new Bounds4(1,2)
+  println(smaller3.smaller)
+
+  val s1 = new Student_bound("A")
+  val s2 = new Student_bound("B")
+  val bound = new Bounds2(s1,s2)
+  println(bound)
+  var p = new Person_bound("C")
+  println(bound.compare(p))
+
+  /**
+    * 类型约束
+    * T =:= U 判断类型T是不是等于U
+    * T <:< U 判断类型T是不是U的子类型
+    * T <%< U 判断类型T是不是能隐式转换到U
+    */
+
+  /**
+    * 型变
+    * 协变 covariant + 用作返回类型
+    * 逆变 contravariant - 用来做参数类型
+    */
+  //协变，泛型前面有+，如果s1是p的子类则 a是b的子类
+  var a = new X(s1)
+  var b = new X(p)
+  //逆变,泛型前面有-，如果s1是p的子类则 b是a的子类
+  a = new X(s1)
+  b = new X(p)
+
+  /**
+    * 类型通配符
+    * java 为？
+    * scala 为 _
+    */
+  //java <? extends AA>
+  //scala [_ <: AA]
+
   /**
     * 隐式转换
     * 目的： 为现有类库增加功能
@@ -43,7 +140,11 @@ object Part4 extends App{
     */
   //单个标识符指代的隐式函数
   import Context._
+  try{
     new File("").read
+  } catch{
+    case e:Exception => println(e)
+  }
   TestT.print("jack")("Hello1")
   /**
     * 隐式参数(带implicit标识的参数)
