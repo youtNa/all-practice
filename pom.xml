@@ -12,6 +12,7 @@
     <modules>
         <module>storm-test</module>
         <module>design-pattern</module>
+        <module>spark-test</module>
         <module>others</module>
     </modules>
 
