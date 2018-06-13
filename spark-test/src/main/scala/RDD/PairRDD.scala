@@ -52,11 +52,41 @@ object PairRDD {
     printOutPutArray(valuesRDD)
 
     /**
-      * sortByKey
+      * sortByKey test
       */
     val sortByKey = pairs.sortByKey().collect()
     println("sortByKey 返回一个根据键排序的RDD")
     printOutPutArray(sortByKey)
+
+    val others = sc.parallelize(Seq((3,9)))
+
+    /**
+      * subtractByKey test
+      */
+    val subtractByKeyRDD = pairs.subtractByKey(others).collect()
+    println("subtractByKey 删掉RDD中与other RDD中key相同的元素")
+    printOutPutArray(subtractByKeyRDD)
+
+    /**
+      * join test
+      */
+    val joinRDD = pairs.join(others).collect()
+    println("join RDD 内连接")
+    printOutPutArray(joinRDD)
+
+    /**
+      * rightOuterJoin test
+      */
+    val rightOuterJoinRDD = pairs.rightOuterJoin(others).collect()
+    println("rightOuterJoin 右外链接")
+    printOutPutArray(rightOuterJoinRDD)
+
+    /**
+      * leftOuterJoin test
+      */
+    val leftOuterJoinRDD = pairs.leftOuterJoin(others).collect()
+    println("leftOuterJoin 左外链接")
+    printOutPutArray(leftOuterJoinRDD)
   }
 
   def printOutPutArray[T](rDDs: Array[T]): Unit = {
