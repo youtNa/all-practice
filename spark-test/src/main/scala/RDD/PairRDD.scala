@@ -87,6 +87,17 @@ object PairRDD {
     val leftOuterJoinRDD = pairs.leftOuterJoin(others).collect()
     println("leftOuterJoin 左外链接")
     printOutPutArray(leftOuterJoinRDD)
+
+    /**
+      * combineByKey test
+      */
+    val combineByKeyRDD = pairs.combineByKey(
+      (v) => (v, 1),
+      (acc: (Int, Int), v) => (acc._1 + v, acc._2 + 1),
+      (acc1: (Int, Int), acc2: (Int, Int)) => (acc1._1 + acc2._1, acc1._2 + acc2._2)
+    ).collect()
+    println("combineByKey 第一个参数：当前分区key第一此出现value调用此方法，第二个参数：当前分区非第一此出现merge value，第三个参数：合并分区值。")
+    printOutPutArray(combineByKeyRDD)
   }
 
   def printOutPutArray[T](rDDs: Array[T]): Unit = {
