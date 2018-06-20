@@ -98,10 +98,43 @@ object PairRDD {
     ).collect()
     println("combineByKey 第一个参数：当前分区key第一此出现value调用此方法，第二个参数：当前分区非第一此出现merge value，第三个参数：合并分区值。")
     printOutPutArray(combineByKeyRDD)
+
+    /**
+      * sortByKey test
+      */
+    val sortByKeyRDD = pairs.sortByKey(false).collect()
+    println("sortByKey 利用key对RDD排序,默认为升序true, false为降序")
+    printOutPutArray(sortByKeyRDD)
+
+    /**
+      * countByKey test
+      */
+    val countByKeyRDD = pairs.countByKey()
+    println("countByKey 计算RDD中key出现了几次")
+    printOutPut()
+    println(countByKeyRDD)
+
+    /**
+      * collectAsMap test
+      */
+    val collectAsMapRDD = pairs.collectAsMap()
+    println("collectAsMap 结果一映射表的形式返回，并且若有相同key，后面的会覆盖前面的")
+    printOutPut()
+    println(collectAsMapRDD)
+
+    /**
+      * lookup test
+      */
+    val lookupRDD = pairs.lookup(3)
+    println("lookup 返回给定键对应的所有值")
+    printOutPut()
+    println(lookupRDD)
   }
 
   def printOutPutArray[T](rDDs: Array[T]): Unit = {
-    println("======== 输出示例 =======")
+    printOutPut()
     for (one <- rDDs) println(one)
   }
+
+  def printOutPut() : Unit = println("======== 输出示例 =======")
 }
