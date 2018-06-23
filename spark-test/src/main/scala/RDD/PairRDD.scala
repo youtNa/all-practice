@@ -1,5 +1,6 @@
 package RDD
 
+import org.apache.spark
 import org.apache.spark.{SparkConf, SparkContext}
 
 
@@ -129,6 +130,19 @@ object PairRDD {
     println("lookup 返回给定键对应的所有值")
     printOutPut()
     println(lookupRDD)
+
+    /**
+      * 获取分区
+      */
+    var partitions = pairs.partitioner
+    println("输出partitions")
+    printOutPut()
+    println(partitions)
+
+    partitions = pairs.partitionBy(new spark.HashPartitioner(2)).partitioner
+    println("输出partitions")
+    printOutPut()
+    println(partitions)
   }
 
   def printOutPutArray[T](rDDs: Array[T]): Unit = {
