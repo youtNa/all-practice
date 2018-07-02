@@ -114,7 +114,7 @@ object Handle {
     /**
       * foreach test
       */
-    println("\nforeach 对每个元素做操作，不用吧所有RDD元素都发送到单台机器上处理")
+    println("\nforeach 对每个元素做操作，不用把所有RDD元素都发送到单台机器上处理")
     printOutPut("")
     text.foreach(x => println("foreach : " + x))
   }
