@@ -44,6 +44,19 @@ object Handle {
 
     println(mapPartitionsRDD)
 
+    /**
+      * stats test
+      */
+    println("stats 相当于流式计算，stats后的所有操作只做一次")
+    val doubleRDD = sc.parallelize(Seq(2,49,173,48,5,7,38))
+    val stats = doubleRDD.stats();
+    val stdev = stats.stdev //标准差
+    val mean = stats.mean //平均值
+    val resultRDD = doubleRDD.filter(x => math.abs(x - mean) < 3 * stdev).collect()
+    println("======= 输出 ========")
+    for (x <- resultRDD){
+      println(x)
+    }
   }
 
   def mapPartitions(lines : Iterator[String]) : Iterator[(String,Int)] = {
