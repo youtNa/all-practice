@@ -31,6 +31,28 @@ object Handle {
     println("===== 输出结果 =====")
     println(lines.value)
     println(array.value)
+
+    /**
+      * mapPartitions test
+      */
+    println("mapPartitions 对每个分区进行map操作")
+
+    val mapPartitionsRDD = file.mapPartitions(mapPartitions).collect()
+    for (t <- mapPartitionsRDD){
+      println(t)
+    }
+
+    println(mapPartitionsRDD)
+
   }
 
+  def mapPartitions(lines : Iterator[String]) : Iterator[(String,Int)] = {
+    var ret = List[(String,Int)]()
+    while (lines.hasNext){
+      val t = lines.next()
+      println(t)
+      ret.::= (t,t.length)
+    }
+    ret.iterator
+  }
 }
