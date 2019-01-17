@@ -3,19 +3,15 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+    <!--<parent>
+        <groupId>cn.yout.all.practice</groupId>
+        <artifactId>all-practice</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>-->
 
-    <groupId>cn.yout.all.practice</groupId>
-    <artifactId>all-practice</artifactId>
+    <groupId>storm-test</groupId>
+    <artifactId>storm-test</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <packaging>pom</packaging>
-
-    <modules>
-        <module>storm-test</module>
-        <module>design-pattern</module>
-        <module>spark-test</module>
-        <module>netty</module>
-        <!--<module>others</module>-->
-    </modules>
 
     <dependencies>
         <dependency>
@@ -24,7 +20,13 @@
             <version>1.1.0</version>
             <scope>private</scope>
         </dependency>
+
         <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>5.0.3.RELEASE</version>
+        </dependency>
+        <!--<dependency>
             <groupId>ring-cors</groupId>
             <artifactId>ring-cors</artifactId>
             <version>0.1.5</version>
@@ -34,7 +36,7 @@
                     <artifactId>ring-core</artifactId>
                 </exclusion>
             </exclusions>
-        </dependency>
+        </dependency>-->
         <!--<dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
@@ -45,18 +47,24 @@
             <artifactId>log4j-over-slf4j</artifactId>
             <version>1.6.6</version>
         </dependency>-->
-        <dependency>
+        <!--<dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
             <version>1.7.21</version>
-        </dependency>
+        </dependency>-->
     </dependencies>
 
     <build>
+        <!--<resources>
+            <resource>
+
+            </resource>
+        </resources>-->
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
+                <version>1.4</version>
                 <configuration>
                     <createDependencyReducedPom>true</createDependencyReducedPom>
                     <filters>
