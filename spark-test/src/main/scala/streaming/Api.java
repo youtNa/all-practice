@@ -25,7 +25,7 @@ public class Api {
      */
     private static SparkSession.Builder initBuilder() {
         SparkSession.Builder sparkBuilder = SparkSession.builder()
-                .appName("api-analysis");
+                .appName("name");
         sparkBuilder.master("local[2]");
         return sparkBuilder;
     }
