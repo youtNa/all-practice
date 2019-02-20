@@ -16,7 +16,7 @@ object Api {
 
     val ssc = new StreamingContext(sparkConf, Seconds(2))
     val lines = ssc.queueStream(rddQueue)
-    val d = lines.map(_ + 1).filter(_ > 4)
+    val d = lines.map(_ + 1).filter(_ > 0).mapPartitions(iteratorAdd1).flatMap(_ + "2")
     d.print()
 
 
@@ -29,5 +29,11 @@ object Api {
       Thread.sleep(1000)
     }
     ssc.stop()
+  }
+
+  def iteratorAdd1(x: Iterator[Int]) : Iterator[Iterator[Int]] = {
+    val list = List[String]()
+//    for (i <- x) list+("txt"+i)
+    Iterator(Iterator(12),Iterator(56))
   }
 }
