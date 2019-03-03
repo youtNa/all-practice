@@ -5,6 +5,7 @@ import org.apache.spark.rdd.RDD
 import org.apache.spark.streaming.{Seconds, StreamingContext}
 
 import scala.collection.mutable
+import scala.collection.mutable.ListBuffer
 
 /**
   * @date 2019/01/21
@@ -16,7 +17,10 @@ object Api {
 
     val ssc = new StreamingContext(sparkConf, Seconds(2))
     val lines = ssc.queueStream(rddQueue)
-    val d = lines.map(_ + 1).filter(_ > 0).mapPartitions(iteratorAdd1).flatMap(_ + "2")
+    // map & filter example
+    val mapAndFilter = lines.map(_ + 1).filter(_ > 1)
+    // flatMap & mapPartitions
+    val d = mapAndFilter.flatMap(List(_, 20, 30, 40)).mapPartitions(iteratorAdd)
     d.print()
 
 
@@ -31,9 +35,12 @@ object Api {
     ssc.stop()
   }
 
-  def iteratorAdd1(x: Iterator[Int]) : Iterator[Iterator[Int]] = {
-    val list = List[String]()
-//    for (i <- x) list+("txt"+i)
-    Iterator(Iterator(12),Iterator(56))
+  def iteratorAdd(input: Iterator[Int]) : Iterator[String] = {
+    val output = ListBuffer[String]()
+    for (t <- input){
+      output += t.toString + " map"
+    }
+    output.iterator
   }
+
 }
