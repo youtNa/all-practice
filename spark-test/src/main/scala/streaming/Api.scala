@@ -16,21 +16,27 @@ object Api {
     val rddQueue = new mutable.Queue[RDD[Int]]()
 
     val ssc = new StreamingContext(sparkConf, Seconds(2))
+    // consume from rddQueue
     val lines = ssc.queueStream(rddQueue)
     // map & filter example
     val mapAndFilter = lines.map(_ + 1).filter(_ > 1)
     // flatMap & mapPartitions
-    val d = mapAndFilter.flatMap(List(_, 20, 30, 40)).mapPartitions(iteratorAdd)
+    val flatMapAndMapPartitions = mapAndFilter.flatMap(List(_, 20, 30, 40)).mapPartitions(iteratorAdd)
     // transform
-    val t = d.transform(rdd => {
-      println("=====" + rdd.id)
+    val transform1 = flatMapAndMapPartitions.transform(rdd => {
+      println("transform1: id: " + rdd.id)
       rdd
     })
-    t.print()
+    val transform2 = transform1.transform((rdd, time) => {
+      println("transform2: id: " + rdd.id + " time: " + time)
+      rdd
+    })
+    transform2.print()
 
 
     ssc.start()
 
+    // produce to rddQueue
     for (i <- 1 to 30) {
       rddQueue.synchronized {
         rddQueue += ssc.sparkContext.makeRDD(1 to 1000, 10)
