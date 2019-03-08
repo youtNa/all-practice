@@ -21,7 +21,12 @@ object Api {
     val mapAndFilter = lines.map(_ + 1).filter(_ > 1)
     // flatMap & mapPartitions
     val d = mapAndFilter.flatMap(List(_, 20, 30, 40)).mapPartitions(iteratorAdd)
-    d.print()
+    // transform
+    val t = d.transform(rdd => {
+      println("=====" + rdd.id)
+      rdd
+    })
+    t.print()
 
 
     ssc.start()
