@@ -1,6 +1,6 @@
 package streaming
 
-import org.apache.spark.SparkConf
+import org.apache.spark.{SparkConf, rdd}
 import org.apache.spark.rdd.RDD
 import org.apache.spark.streaming.{Seconds, StreamingContext}
 
@@ -32,6 +32,10 @@ object Api {
       rdd
     })
     transform2.print()
+
+    // foreachRDD
+    transform1.foreachRDD(_.take(10))
+
 
 
     ssc.start()
