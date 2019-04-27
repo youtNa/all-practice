@@ -34,7 +34,10 @@ object Api {
     transform2.print()
 
     // foreachRDD
-    transform1.foreachRDD(_.take(10))
+    transform1.foreachRDD(rdd => {
+      val values = rdd.take(10)
+      for (value <- values) println("foreachRDD == " + value)
+    })
 
 
 
