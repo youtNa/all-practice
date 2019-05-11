@@ -39,6 +39,12 @@ object Api {
       for (value <- values) println("foreachRDD == " + value)
     })
 
+    // glom
+    lines.glom().map(x => for(i <- x) println("glom ==> " + i)).print()
+
+    // repartition
+    val re = lines.repartition(2).map(_ + 1)
+    re.print()
 
 
     ssc.start()
