@@ -3,11 +3,11 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <!--<parent>
+    <parent>
         <groupId>cn.yout.all.practice</groupId>
         <artifactId>all-practice</artifactId>
         <version>1.0-SNAPSHOT</version>
-    </parent>-->
+    </parent>
 
     <groupId>storm-test</groupId>
     <artifactId>storm-test</artifactId>
@@ -23,43 +23,12 @@
 
         <dependency>
             <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
-            <version>5.0.3.RELEASE</version>
+            <artifactId>spring-beans</artifactId>
+            <version>4.3.21.RELEASE</version>
         </dependency>
-        <!--<dependency>
-            <groupId>ring-cors</groupId>
-            <artifactId>ring-cors</artifactId>
-            <version>0.1.5</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>ring</groupId>
-                    <artifactId>ring-core</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>-->
-        <!--<dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
-            <version>1.6.6</version>
-        </dependency>-->
-        <!--<dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>log4j-over-slf4j</artifactId>
-            <version>1.6.6</version>
-        </dependency>-->
-        <!--<dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>1.7.21</version>
-        </dependency>-->
     </dependencies>
 
     <build>
-        <!--<resources>
-            <resource>
-
-            </resource>
-        </resources>-->
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -100,6 +69,14 @@
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>8</source>
+                    <target>8</target>
+                </configuration>
             </plugin>
         </plugins>
     </build>
