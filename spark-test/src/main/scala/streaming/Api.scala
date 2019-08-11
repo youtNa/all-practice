@@ -46,6 +46,8 @@ object Api {
     val re = lines.repartition(2).map(_ + 1)
     re.print()
 
+    // window
+    lines.window(Seconds(8),Seconds(4)).print()
 
     ssc.start()
 
