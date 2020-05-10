@@ -1,7 +1,9 @@
 package streaming
 
 import org.apache.spark.sql.SparkSession
-import org.apache.spark.sql.types.{IntegerType, IntegralType, LongType, StringType, StructField, StructType}
+import org.apache.spark.sql.types.{BinaryType, IntegerType, IntegralType, LongType, StringType, StructField, StructType}
+
+import scala.util.parsing.json.JSON
 
 object Structured {
   def main(args: Array[String]): Unit = {
@@ -26,13 +28,22 @@ object Structured {
       .add("id", IntegerType)
       .add("type", StringType)
     // Create DataFrame representing the stream of input lines from connection to host:port
+//    val lines = spark.readStream
+//      .format("socket")
+//      .option("host", host)
+//      .option("port", port)
+////      .format("json")
+//      .schema(testSchema)
+//      .load()
     val lines = spark.readStream
-      .format("socket")
-      .option("host", host)
-      .option("port", port)
-//      .format("json")
-      .schema(testSchema)
-      .load()
+        .format("kafka")
+        .option("kafka.bootstrap.servers", "192.168.1.200:9092")
+        .option("subscribe", "topic1")
+  .option("group.id","test")
+        .load();
+    lines.selectExpr("CAST(value AS STRING)").createOrReplaceTempView("test")
+//    val t = spark.sql("select * from test")
+//    t.printSchema()
 //
 //    lines.map(row => {
 //
@@ -40,7 +51,7 @@ object Structured {
 //    lines.withColumn("jsonData",from_json(col("value"),testSchema))
 //    lines.printSchema()
 
-    lines.createOrReplaceTempView("test")
+//    lines.createOrReplaceTempView("test")
     val wordCounts = spark.sql("select a.id as id,a.type as type from ( select from_json(value, 'id INT, type string') as a from test)")
     wordCounts.printSchema()
 //    spark.
